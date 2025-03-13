@@ -96,6 +96,18 @@ this.searchBarValue.pipe(
 4. **Cache Storage** (Service Worker controlled)
 5. **IndexedDB**
 
+## Client-Side Storage Options in Angular
+
+| Storage Type       | Description | Data Persistence | Size Limit | Use Cases |
+|--------------------|-------------|------------------|------------|-----------|
+| **Cookies** 🍪  | Small key-value storage sent with HTTP requests. Can have expiration time. | Until expiration (or manually deleted) | ~4KB | Authentication tokens, user preferences |
+| **Local Storage** 🗄️  | Stores data permanently in the browser until manually cleared. | Persistent | ~5-10MB | User settings, cache data, app states |
+| **Session Storage** ⏳  | Stores data for a single session (cleared when the tab is closed). | Until browser tab is closed | ~5MB | Temporary form data, session-based user data |
+| **Cache Storage** ⚡  | Stores network responses and assets for offline access, managed by Service Workers. | Until cache is cleared | Varies | PWA caching, faster load times, offline support |
+| **IndexedDB** 🏦  | NoSQL database for storing large structured data, supports transactions. | Persistent | 50MB+ (browser-dependent) | Large-scale storage, offline databases, caching complex data |
+
+
+
 ## Reusability in Angular
 ### Content Projection (`ng-content`)
 - Allows inserting content into a component dynamically.
@@ -113,3 +125,23 @@ this.searchBarValue.pipe(
   template: `<ng-content></ng-content>`
 })
 ```
+
+## JavaScript Concepts
+### Array Methods
+- **reduce()** - Iterates over an array and returns a single accumulated value.
+- **map()** - Creates a new array by transforming each element.
+- **filter()** - Returns a new array with only elements that satisfy a condition.
+- **find()** - Returns the first matching element based on a condition.
+- **some()** - Checks if at least one element satisfies the condition. Returns a boolean.
+- **every()** - Checks if all elements satisfy the condition. Returns a boolean.
+
+### Event Loop & Async JavaScript
+- **setTimeout()** - Delays execution of a function.
+- **Promise** - Handles asynchronous operations.
+- **async/await** - Simplifies working with Promises.
+
+### Other JavaScript Concepts
+- **Closures** - Functions remembering outer variables.
+- **Hoisting** - JavaScript moves function and variable declarations to the top.
+- **Prototype & Inheritance** - Objects inherit properties/methods from prototypes.
+- **Currying** - Transforms a function so arguments are applied one at a time.
