@@ -2,16 +2,18 @@
 
 ## Core Angular Concepts
 ### Components, Directives, Pipes, Services, Dependency Injection
-- **Components**: Building blocks of Angular applications.
-- **Directives**: Attribute & structural directives (e.g., `ngIf`, `ngFor`).
-- **Pipes**: Transform data in templates (`uppercase`, `date`, `custom pipes`).
-- **Services & Dependency Injection**: Share logic across components.
+- **Components**: The fundamental building blocks of Angular applications, responsible for handling the UI and logic.
+- **Directives**:
+  - **Attribute Directives**: Modify the behavior or appearance of an element (`ngClass`, `ngStyle`).
+  - **Structural Directives**: Change the DOM structure (`ngIf`, `ngFor`, `ngSwitch`).
+- **Pipes**: Transform data before displaying it in a template (`uppercase`, `date`, `custom pipes`).
+- **Services & Dependency Injection**: Share reusable logic across components and improve modularity and maintainability.
 
 ## Advanced Angular Topics
 ### Change Detection
-- **Default**: Checks the entire component tree.
-- **OnPush**: Checks only when `@Input` changes (better performance).
-- **ChangeDetectorRef**: Manually trigger change detection.
+- **Default Change Detection**: Angular checks the entire component tree for changes, triggered by events, user interactions, or API responses.
+- **OnPush Strategy**: Optimizes performance by checking only when `@Input` changes or explicitly triggered using `ChangeDetectorRef`.
+- **ChangeDetectorRef**: Allows manual triggering of change detection cycles to optimize rendering.
 
 ```typescript
 @Component({
@@ -23,31 +25,30 @@
 
 ### State Management
 #### NgRx (Redux-style State Management)
-- **Store**: Holds the application state.
-- **Actions**: Events that modify state.
-- **Reducers**: Define how state changes.
-- **Selectors**: Extract slices of state.
-- **Effects**: Handle side effects (e.g., API calls).
+- **Store**: Central repository holding the application state.
+- **Actions**: Define events that modify state.
+- **Reducers**: Specify how state transitions occur.
+- **Selectors**: Extract slices of state efficiently.
+- **Effects**: Handle side effects like API calls asynchronously.
 
 #### Akita (Simpler alternative to NgRx)
-- Stores, Queries, Entities, Actions.
+- Uses **Stores, Queries, Entities, Actions** for lightweight state management.
 
 #### Angular Signals (Introduced in Angular 16)
-- **Signals**: Reactive variables.
-- **Computed**: Derive new values.
-- **Effects**: Run side effects.
+- **Signals**: Reactive variables that respond to changes.
+- **Computed**: Derived values based on signals.
+- **Effects**: Run side effects when signals change.
 
 #### Earlier State Management Approaches
-1. Component state
-2. `@Input()` & `@Output()`
-3. Services with `BehaviorSubject`
-4. LocalStorage / SessionStorage
-5. EventEmitters
+1. Component state (local variables)
+2. `@Input()` & `@Output()` for parent-child communication
+3. Services with `BehaviorSubject` for shared state
+4. LocalStorage / SessionStorage for persistence
+5. EventEmitters for component communication
 
 ## Performance Optimization
 ### Lazy Loading Modules
-- Load feature modules only when needed.
-- Example:
+- Load feature modules dynamically to improve performance.
 
 ```typescript
 const routes: Routes = [
@@ -56,7 +57,7 @@ const routes: Routes = [
 ```
 
 ### Optimizing RxJS & Async Operations
-- **Debounce API calls**
+- **Debounce API calls** to prevent excessive requests.
 
 ```typescript
 this.searchBarValue.pipe(
@@ -67,7 +68,7 @@ this.searchBarValue.pipe(
 ```
 
 - **`switchMap()`**: Cancels previous request before making a new one.
-- **`tap()`**: Logs values without affecting stream.
+- **`tap()`**: Logs values without affecting the stream.
 
 ### `trackBy` in `ngFor`
 - Improves performance by reducing DOM updates.
@@ -96,18 +97,6 @@ this.searchBarValue.pipe(
 4. **Cache Storage** (Service Worker controlled)
 5. **IndexedDB**
 
-## Client-Side Storage Options in Angular
-
-| Storage Type       | Description | Data Persistence | Size Limit | Use Cases |
-|--------------------|-------------|------------------|------------|-----------|
-| **Cookies** 🍪  | Small key-value storage sent with HTTP requests. Can have expiration time. | Until expiration (or manually deleted) | ~4KB | Authentication tokens, user preferences |
-| **Local Storage** 🗄️  | Stores data permanently in the browser until manually cleared. | Persistent | ~5-10MB | User settings, cache data, app states |
-| **Session Storage** ⏳  | Stores data for a single session (cleared when the tab is closed). | Until browser tab is closed | ~5MB | Temporary form data, session-based user data |
-| **Cache Storage** ⚡  | Stores network responses and assets for offline access, managed by Service Workers. | Until cache is cleared | Varies | PWA caching, faster load times, offline support |
-| **IndexedDB** 🏦  | NoSQL database for storing large structured data, supports transactions. | Persistent | 50MB+ (browser-dependent) | Large-scale storage, offline databases, caching complex data |
-
-
-
 ## Reusability in Angular
 ### Content Projection (`ng-content`)
 - Allows inserting content into a component dynamically.
@@ -128,20 +117,73 @@ this.searchBarValue.pipe(
 
 ## JavaScript Concepts
 ### Array Methods
-- **reduce()** - Iterates over an array and returns a single accumulated value.
-- **map()** - Creates a new array by transforming each element.
-- **filter()** - Returns a new array with only elements that satisfy a condition.
-- **find()** - Returns the first matching element based on a condition.
-- **some()** - Checks if at least one element satisfies the condition. Returns a boolean.
-- **every()** - Checks if all elements satisfy the condition. Returns a boolean.
+- **`reduce()`** - Iterates over an array and returns a single accumulated value.
+- **`map()`** - Creates a new array by transforming each element.
+- **`filter()`** - Returns a new array with only elements that satisfy a condition.
+- **`find()`** - Returns the first matching element based on a condition.
+- **`some()`** - Checks if at least one element satisfies the condition. Returns a boolean.
+- **`every()`** - Checks if all elements satisfy the condition. Returns a boolean.
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+console.log(numbers.map(num => num * 2)); // [2, 4, 6, 8, 10]
+```
 
 ### Event Loop & Async JavaScript
-- **setTimeout()** - Delays execution of a function.
+- **setTimeout()** - Executes code after a delay.
 - **Promise** - Handles asynchronous operations.
 - **async/await** - Simplifies working with Promises.
 
+```javascript
+async function fetchData() {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  console.log(data);
+}
+```
+
 ### Other JavaScript Concepts
-- **Closures** - Functions remembering outer variables.
+- **Closures** - Functions that remember the variables from their outer scope.
+
+```javascript
+function outerFunction(outerVariable) {
+  return function innerFunction(innerVariable) {
+    console.log(`Outer: ${outerVariable}, Inner: ${innerVariable}`);
+  };
+}
+const newFunction = outerFunction("Hello");
+newFunction("World"); // Output: Outer: Hello, Inner: World
+```
+
 - **Hoisting** - JavaScript moves function and variable declarations to the top.
+
+```javascript
+console.log(name); // Undefined (due to hoisting)
+var name = "John";
+```
+
 - **Prototype & Inheritance** - Objects inherit properties/methods from prototypes.
-- **Currying** - Transforms a function so arguments are applied one at a time.
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+Person.prototype.greet = function() {
+  console.log(`Hello, my name is ${this.name}`);
+};
+const person1 = new Person("Alice");
+person1.greet(); // Output: Hello, my name is Alice
+```
+
+- **Currying** - Transforming a function so arguments are applied one at a time.
+
+```javascript
+function add(a) {
+  return function(b) {
+    return a + b;
+  };
+}
+const add5 = add(5);
+console.log(add5(3)); // Output: 8
+```
+
